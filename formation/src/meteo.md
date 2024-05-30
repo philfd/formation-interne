@@ -235,4 +235,24 @@ display(Inputs.table(donneesChoisies))
 Il ne faut pas mettre dans le même bloc de code, la liste déroulante et l'utilisation de la liste déroulante.
 ::::
 
+```js
+function launchTimeline(data, {width} = {}) {
+  return Plot.plot({
+    title: "Launches over the years",
+    width,
+    height: 300,
+    y: {grid: true, label: "Launches"},
+    color: {...donneesChoisies, legend: true},
+    marks: [
+      Plot.rectY(data, Plot.binX({y: "count"}, {x: "date", fill: "state", interval: "year", tip: true})),
+      Plot.ruleY([0])
+    ]
+  });
+}
+```
 
+<div class="grid grid-cols-1">
+  <div class="card">
+    ${resize((width) => launchTimeline(donneesChoisies, {width}))}
+  </div>
+</div>
